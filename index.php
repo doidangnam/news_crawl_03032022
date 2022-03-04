@@ -1,6 +1,6 @@
 <?php 
     require_once('./ContentCrawler.php');
-    require_once('./connectdb.php');
+    require_once('./database/connectdb.php');
     // $content = file_get_contents("https://vnexpress.net/tong-giam-doc-cong-ty-bat-dong-san-o-dong-nai-bi-bat-4434711.html");
     
     // preg_match('#<span class="date">(.*?)</span>#si', $content, $date);
