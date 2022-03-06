@@ -1,6 +1,12 @@
-<?php 
-    require_once('./Content.php');
+<?php
+    require_once('./Logic.php');
+    require_once('./Parser.php');
+    require_once('./VnexpressParser.php');
+
     define('REGEX_VALIDATED_EMAIL', "/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i");
+    if (isset($_GET['link'])) {
+        $link = $_GET['link'];
+    }
     // $content = file_get_contents("https://vnexpress.net/tong-giam-doc-cong-ty-bat-dong-san-o-dong-nai-bi-bat-4434711.html");
     
     // preg_match('#<span class="date">(.*?)</span>#si', $content, $date);
@@ -34,49 +40,39 @@
 <body>
     <form action="" method="GET">
         <label for="link">Put link here!</label>
-        <input type="text" id="link" name="link" value="<?php echo $_GET['link'] ?>"/>
+        <input type="text" id="link" name="link" value="<?php echo $link ?>"/>
         <?php 
-            if (isset($_GET['link'])) {
-                if (!preg_match(REGEX_VALIDATED_EMAIL,$_GET['link'])) {
-                    echo("Invalid URL");
-                } else {
-                    $contentCrawler = new Content($_GET['link']);
-                    $content = $contentCrawler->get();
-                    preg_match('#<span class="date">(.*?)</span>#si', $content, $date);
-                    preg_match('#<h1 class="title-detail">(.*?)</h1>#si', $content, $title);
-                    preg_match('#<p class="description">(.*?)</p>#si', $content, $description);
-                    preg_match_all('#<p class="Normal">(.*?)</p>#si', $content, $details);
-                    $arr = [
-                        'date' => $date,
-                        'title' => $title,
-                        'description' => $description,
-                        'details' => $details
-                    ];
+        if (!preg_match(REGEX_VALIDATED_EMAIL,$link)) {
+            echo("Invalid URL");
+        } else {
+            echo("Valid URL");
+            $logic = new Logic($link);
+            $content = new VnexpressParser($logic);
+            $arr = $content->parse();
         ?>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Title</th>
-                                <th>Description</th>
-                                <th>Details</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td><?php echo $date[1] ?></td>
-                                <td><?php echo $title[1] ?></td>
-                                <td><?php echo $description[1] ?></td>
-                                <td><?php foreach($details[0] as $detail) {
-                                        echo $detail;
-                                    } ?>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><?php echo $arr['date'][0] ?></td>
+                        <td><?php echo $arr['title'][0] ?></td>
+                        <td><?php echo $arr['description'][0] ?></td>
+                        <td><?php foreach($arr['details'][0] as $detail) {
+                                echo $detail;
+                            } ?>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         <?php
-                }
-            }
+        }
         ?>
     </form>
 </body>
