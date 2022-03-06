@@ -1,36 +1,16 @@
 <?php
+    // ADD NEEDED FILES 
     require_once('./Logic.php');
     require_once('./Parser.php');
     require_once('./VnexpressParser.php');
     require_once('./DantriParser.php');
     require_once('./VietnamnetParser.php');
     require_once('./Constant.php');
-
+    // CHECK IF USER ADDED LINK
     if (isset($_GET['link'])) {
         $link = $_GET['link'];
         $site = parse_url($link)['host'];
     }
-    // $content = file_get_contents("https://vnexpress.net/tong-giam-doc-cong-ty-bat-dong-san-o-dong-nai-bi-bat-4434711.html");
-    
-    // preg_match('#<span class="date">(.*?)</span>#si', $content, $date);
-    // preg_match('#<h1 class="title-detail">(.*?)</h1>#si', $content, $title);
-    // preg_match('#<p class="description">(.*?)</p>#si', $content, $description);
-    // preg_match_all('#<p class="Normal">(.*?)</p>#si', $content, $details);
-    // echo '<pre>';
-    // print_r($date);
-    // echo '</pre>';
-    // echo '<pre>';
-    // print_r($title);
-    // echo '</pre>';
-
-    // echo '<pre>';
-    // print_r($description);
-    // echo '</pre>';
-
-    // echo '<pre>';
-    // print_r($details);
-    // echo '</pre>';
-    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,9 +22,10 @@
 </head>
 <body>
     <form action="" method="GET">
-        <label for="link">Put link here!</label>
-        <input type="text" id="link" name="link" value="<?php echo $link ?>"/>
+        <label for="link"> Put link here! </label>
+        <input type="text" id="link" name="link" value="<?php echo $link ?>" />
         <?php 
+        // CHECK WHETHER EMAIL IS VALID
         if (!preg_match(REGEX_VALIDATED_EMAIL,$link)) {
             echo("Invalid URL");
         } else {
@@ -65,6 +46,7 @@
 
             $arr = $content->parse();
         ?>
+            <!-- Display Information of the article -->
             <table>
                 <thead>
                     <tr>
