@@ -4,8 +4,8 @@
     require_once('./VnexpressParser.php');
     require_once('./DantriParser.php');
     require_once('./VietnamnetParser.php');
+    require_once('./Constant.php');
 
-    define('REGEX_VALIDATED_EMAIL', "/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i");
     if (isset($_GET['link'])) {
         $link = $_GET['link'];
         $site = parse_url($link)['host'];

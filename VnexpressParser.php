@@ -2,10 +2,10 @@
 class VnexpressParser extends Parser {
     public function parse() 
     {
-        preg_match('#<span class="date">(.*?)</span>#si', parent::parseContent(), $date);
-        preg_match('#<h1 class="title-detail">(.*?)</h1>#si', parent::parseContent(), $title);
-        preg_match('#<p class="description">(.*?)</p>#si', parent::parseContent(), $description);
-        preg_match_all('#<p class="Normal">(.*?)</p>#si', parent::parseContent(), $details);
+        preg_match(REGEX_VNEXPRESS_DATE, parent::parseContent(), $date);
+        preg_match(REGEX_VNEXPRESS_TITLE, parent::parseContent(), $title);
+        preg_match(REGEX_VNEXPRESS_DESCRIPTION, parent::parseContent(), $description);
+        preg_match_all(REGEX_VNEXPRESS_DETAILS, parent::parseContent(), $details);
 
         return [
             'date' => $date,
