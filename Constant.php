@@ -34,3 +34,5 @@
         define('REGEX_VIETNAMNET_DETAILS', '#<p class="t-j">(.*?)</p>#si');
 
 // Regex -> End
+
+define('ACCEPTED_SITE', ['vnexpress.net', 'dantri.com.vn', 'vietnamnet.vn']);

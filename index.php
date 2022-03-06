@@ -26,9 +26,9 @@
         <input type="text" id="link" name="link" value="<?php echo $link ?>" />
         <?php 
         // CHECK WHETHER EMAIL IS VALID
-        if (!preg_match(REGEX_VALIDATED_EMAIL,$link)) {
+        if (!preg_match(REGEX_VALIDATED_EMAIL,$link) && isset($link)) {
             echo("Invalid URL");
-        } else {
+        } elseif(in_array($site, ACCEPTED_SITE)) {
             echo("Valid $site URL");
             $logic = new Logic($link);
 
@@ -43,7 +43,6 @@
             if ($site == "vietnamnet.vn") {
                 $content = new VietnamnetParser($logic);
             }
-
             $arr = $content->parse();
         ?>
             <!-- Display Information of the article -->
@@ -69,6 +68,10 @@
                 </tbody>
             </table>
         <?php
+        } else {
+            echo '<script language="javascript">';
+            echo 'alert(`This address is currently unavailable!`)';
+            echo '</script>';
         }
         ?>
     </form>
