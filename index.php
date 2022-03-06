@@ -1,4 +1,6 @@
 <?php 
+    require_once('./Content.php');
+    define('REGEX_VALIDATED_EMAIL', "/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i");
     // $content = file_get_contents("https://vnexpress.net/tong-giam-doc-cong-ty-bat-dong-san-o-dong-nai-bi-bat-4434711.html");
     
     // preg_match('#<span class="date">(.*?)</span>#si', $content, $date);
@@ -35,11 +37,10 @@
         <input type="text" id="link" name="link" value="<?php echo $_GET['link'] ?>"/>
         <?php 
             if (isset($_GET['link'])) {
-                if (!preg_match("/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i",$_GET['link'])) {
+                if (!preg_match(REGEX_VALIDATED_EMAIL,$_GET['link'])) {
                     echo("Invalid URL");
                 } else {
-                    require_once('./ContentCrawler.php');
-                    $contentCrawler = new ContentCrawler($_GET['link']);
+                    $contentCrawler = new Content($_GET['link']);
                     $content = $contentCrawler->get();
                     preg_match('#<span class="date">(.*?)</span>#si', $content, $date);
                     preg_match('#<h1 class="title-detail">(.*?)</h1>#si', $content, $title);
@@ -51,9 +52,6 @@
                         'description' => $description,
                         'details' => $details
                     ];
-                    echo '<pre>';
-                    print_r($arr);
-                    echo '</pre>';
         ?>
                     <table>
                         <thead>

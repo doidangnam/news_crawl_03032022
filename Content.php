@@ -1,5 +1,5 @@
 <?php
-class ContentCrawler {
+class Content {
     private $link;
 
     public function __construct($link)
@@ -12,6 +12,4 @@ class ContentCrawler {
     {
         return file_get_contents($this->link);
     }
-
-    // public function 
 }
