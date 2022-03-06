@@ -8,6 +8,7 @@
     define('REGEX_VALIDATED_EMAIL', "/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i");
     if (isset($_GET['link'])) {
         $link = $_GET['link'];
+        $site = parse_url($link)['host'];
     }
     // $content = file_get_contents("https://vnexpress.net/tong-giam-doc-cong-ty-bat-dong-san-o-dong-nai-bi-bat-4434711.html");
     
@@ -47,17 +48,18 @@
         if (!preg_match(REGEX_VALIDATED_EMAIL,$link)) {
             echo("Invalid URL");
         } else {
-            echo("Valid URL");
+            echo("Valid $site URL");
             $logic = new Logic($link);
-            if (parse_url($link)['host'] == "vnexpress.net") {
+
+            if ($site == "vnexpress.net") {
                 $content = new VnexpressParser($logic);
             }
 
-            if (parse_url($link)['host'] == "dantri.com.vn") {
+            if ($site == "dantri.com.vn") {
                 $content = new DantriParser($logic);
             }
 
-            if (parse_url($link)['host'] == "vietnamnet.vn") {
+            if ($site == "vietnamnet.vn") {
                 $content = new VietnamnetParser($logic);
             }
 
