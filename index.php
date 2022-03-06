@@ -2,6 +2,8 @@
     require_once('./Logic.php');
     require_once('./Parser.php');
     require_once('./VnexpressParser.php');
+    require_once('./DantriParser.php');
+    require_once('./VietnamnetParser.php');
 
     define('REGEX_VALIDATED_EMAIL', "/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i");
     if (isset($_GET['link'])) {
@@ -47,7 +49,18 @@
         } else {
             echo("Valid URL");
             $logic = new Logic($link);
-            $content = new VnexpressParser($logic);
+            if (parse_url($link)['host'] == "vnexpress.net") {
+                $content = new VnexpressParser($logic);
+            }
+
+            if (parse_url($link)['host'] == "dantri.com.vn") {
+                $content = new DantriParser($logic);
+            }
+
+            if (parse_url($link)['host'] == "vietnamnet.vn") {
+                $content = new VietnamnetParser($logic);
+            }
+
             $arr = $content->parse();
         ?>
             <table>
