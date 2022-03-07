@@ -106,19 +106,15 @@
         ?>
     </form>
     <!-- FORM:SAVE TO DB -->
-    <?php if ($arr['title'] != NULL){ ?>
-    <form action="" method="POST">
-        <input name="site" type="hidden" value='<?php echo $site ?>' >
-        <input name="date" type="hidden" value='<?php echo $arr['date'][0] ?>'>
-        <input name="title" type="hidden" value='<?php echo $arr['title'][0] ?>' />
-        <input name="description" type="hidden" value='<?php echo $arr['description'][0] ?>'>
-        <input name="details" type="hidden" value='<?php echo implode("|", $arr['details'][0]) ?>' >
-        <button type="submit" name="save_to_db">SAVE TO DATABASE!</button>
-    </form>
-    <?php } else {
-        echo '<script language="javascript">';
-        echo 'alert(`Fail to retrieve full information, please check your link!`)';
-        echo '</script>';
-    } ?>
+    <?php if ($arr['title'] != NULL && trim($link) != 0) { ?> 
+        <form action="" method="POST">
+            <input name="site" type="hidden" value='<?php echo $site ?>' >
+            <input name="date" type="hidden" value='<?php echo $arr['date'][0] ?>'>
+            <input name="title" type="hidden" value='<?php echo $arr['title'][0] ?>' />
+            <input name="description" type="hidden" value='<?php echo $arr['description'][0] ?>'>
+            <input name="details" type="hidden" value='<?php echo implode("|", $arr['details'][0]) ?>' >
+            <button type="submit" name="save_to_db">SAVE TO DATABASE!</button>
+        </form>
+    <?php } ?>
 </body>
 </html>
