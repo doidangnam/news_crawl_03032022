@@ -1,13 +1,8 @@
 <?php
-    // ADD NEEDED FILES 
-    require_once('./Helpers/Logic.php');
-    require_once('./Helpers/Parser.php');
-    require_once('./Helpers/Constant.php');
-    require_once('./SitesParser/VnexpressParser.php');
-    require_once('./SitesParser/DantriParser.php');
-    require_once('./SitesParser/VietnamnetParser.php');
-    
-    // CHECK IF USER ADDED LINK
+    include('./autoload.php');
+    define('REGEX_VALIDATED_EMAIL', "/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i");
+    define('ACCEPTED_SITE', ['vnexpress.net', 'dantri.com.vn', 'vietnamnet.vn']);
+    // CHECK IF USER ADDED LINK 
     if (isset($_GET['link'])) {
         $link = filter_var($_GET['link'],FILTER_SANITIZE_SPECIAL_CHARS);
         $site = parse_url($link)['host'];
@@ -58,21 +53,21 @@
             echo '</script>';
         } elseif (in_array($site, ACCEPTED_SITE)) {
             echo("Valid $site URL");
-            $logic = new Logic($link);
+            $crawler = new Helpers\Crawler($link);
             // Check hostname and point to specific parsers
             if ($site == "vnexpress.net") {
-                $content = new VnexpressParser($logic);
+                $content = new SitesParser\VnexpressParser($crawler);
             }
 
             if ($site == "dantri.com.vn") {
-                $content = new DantriParser($logic);
+                $content = new SitesParser\DantriParser($crawler);
             }
 
             if ($site == "vietnamnet.vn") {
-                $content = new VietnamnetParser($logic);
+                $content = new SitesParser\VietnamnetParser($crawler);
             }
             // Array for storage and display
-            $arr = $content->parse();
+            $arr = $content->getArrayElements();
         ?>
             <!-- Display Information of the article -->
             <table>

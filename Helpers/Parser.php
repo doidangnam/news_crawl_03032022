@@ -1,14 +1,35 @@
 <?php 
+namespace Helpers;
+
 class Parser {
-    private $businessLogic;
+    private $crawler;
     
-    public function __construct(Logic $logic)
+    public function __construct(Crawler $crawler)
     {   
-        $this->businessLogic = $logic;
+        $this->crawler = $crawler;
     }
-    
-    public function parseContent()
+        
+    /**
+     * parse
+     *
+     * @param  string $regexDate 
+     * @param  string $regexTitle
+     * @param  string $regexDescription
+     * @param  string $regexDetails
+     * @return array
+     */
+    public function parse($regexDate, $regexTitle, $regexDescription, $regexDetails)
     {
-        return $this->businessLogic->getContents();
+        preg_match($regexDate, $this->crawler->crawl(), $date);
+        preg_match($regexTitle, $this->crawler->crawl(), $title);
+        preg_match($regexDescription, $this->crawler->crawl(), $description);
+        preg_match_all($regexDetails, $this->crawler->crawl(), $details);
+
+        return [
+            'date' => $date,
+            'title' => $title,
+            'description' => $description,
+            'details' => $details
+        ];
     }
 }
