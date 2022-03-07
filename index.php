@@ -45,6 +45,7 @@
     <title>Document</title>
 </head>
 <body>
+    <!-- FORM GET CONTENT FROM LINK -->
     <form action="" method="GET">
         <label for="link"> Put link here! </label>
         <input type="text" id="link" name="link" value="<?php echo $link ?>" />
@@ -55,7 +56,7 @@
         } elseif(in_array($site, ACCEPTED_SITE)) {
             echo("Valid $site URL");
             $logic = new Logic($link);
-
+            // Check hostname and point to specific parsers
             if ($site == "vnexpress.net") {
                 $content = new VnexpressParser($logic);
             }
@@ -67,6 +68,7 @@
             if ($site == "vietnamnet.vn") {
                 $content = new VietnamnetParser($logic);
             }
+            // Array for storage and display
             $arr = $content->parse();
         ?>
             <!-- Display Information of the article -->
@@ -92,6 +94,7 @@
                 </tbody>
             </table>
         <?php
+        // USER INPUTS THE UNACCEPTED LINK
         } elseif(!in_array($link, ACCEPTED_SITE) && isset($_GET['link'])) {
             echo '<script language="javascript">';
             echo 'alert(`This address is currently unavailable!`)';
@@ -99,6 +102,7 @@
         }
         ?>
     </form>
+    <!-- FORM:SAVE TO DB -->
     <form action="" method="POST">
         <input name="site" type="hidden" value='<?php echo $site ?>' >
         <input name="date" type="hidden" value='<?php echo $arr['date'][0] ?>'>
