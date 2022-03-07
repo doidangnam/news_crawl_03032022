@@ -32,7 +32,7 @@
                 echo '</script>';
             }
         } catch (\Exception $e) {
-            die("Error: " . $sql . "<br>" . $conn->error);
+            die ("Error: " . $sql . "<br>" . $conn->error);
         }
         $conn->close();
     }
@@ -56,7 +56,7 @@
             echo '<script language="javascript">';
             echo 'alert(`Invalid URL`)';
             echo '</script>';
-        } elseif(in_array($site, ACCEPTED_SITE)) {
+        } elseif (in_array($site, ACCEPTED_SITE)) {
             echo("Valid $site URL");
             $logic = new Logic($link);
             // Check hostname and point to specific parsers
@@ -89,7 +89,7 @@
                         <td><?php echo $arr['date'][0] ?></td>
                         <td><?php echo $arr['title'][0] ?></td>
                         <td><?php echo $arr['description'][0] ?></td>
-                        <td><?php foreach($arr['details'][0] as $detail) {
+                        <td><?php foreach ($arr['details'][0] as $detail) {
                                 echo $detail;
                             } ?>
                         </td>
@@ -98,7 +98,7 @@
             </table>
         <?php
         // USER INPUTS THE UNACCEPTED LINK
-        } elseif(!in_array($link, ACCEPTED_SITE) && isset($_GET['link'])) {
+        } elseif (!in_array($link, ACCEPTED_SITE) && isset($_GET['link'])) {
             echo '<script language="javascript">';
             echo 'alert(`This address is currently unavailable!`)';
             echo '</script>';
