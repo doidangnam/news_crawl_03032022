@@ -9,8 +9,9 @@
     
     // CHECK IF USER ADDED LINK
     if (isset($_GET['link'])) {
-        $link = $_GET['link'];
+        $link = filter_var($_GET['link'],FILTER_SANITIZE_SPECIAL_CHARS);
         $site = parse_url($link)['host'];
+        $arr = [];
     }
 
     if (isset($_POST['save_to_db'])) {
@@ -52,7 +53,9 @@
         <?php 
         // CHECK WHETHER EMAIL IS VALID
         if (!preg_match(REGEX_VALIDATED_EMAIL,$link) && isset($link)) {
-            echo("Invalid URL");
+            echo '<script language="javascript">';
+            echo 'alert(`Invalid URL`)';
+            echo '</script>';
         } elseif(in_array($site, ACCEPTED_SITE)) {
             echo("Valid $site URL");
             $logic = new Logic($link);
@@ -103,16 +106,19 @@
         ?>
     </form>
     <!-- FORM:SAVE TO DB -->
+    <?php if ($arr['title'] != NULL){ ?>
     <form action="" method="POST">
         <input name="site" type="hidden" value='<?php echo $site ?>' >
         <input name="date" type="hidden" value='<?php echo $arr['date'][0] ?>'>
         <input name="title" type="hidden" value='<?php echo $arr['title'][0] ?>' />
         <input name="description" type="hidden" value='<?php echo $arr['description'][0] ?>'>
         <input name="details" type="hidden" value='<?php echo implode("|", $arr['details'][0]) ?>' >
-        <?php if ($arr) { ?>
-            <button type="submit" name="save_to_db">SAVE TO DATABASE!</button>
-        <?php } ?>
-        
+        <button type="submit" name="save_to_db">SAVE TO DATABASE!</button>
     </form>
+    <?php } else {
+        echo '<script language="javascript">';
+        echo 'alert(`Fail to retrieve full information, please check your link!`)';
+        echo '</script>';
+    } ?>
 </body>
 </html>
