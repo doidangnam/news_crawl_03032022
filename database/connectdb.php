@@ -1,9 +1,7 @@
 <?php 
     require('./database/config.php');
-    $connected = mysqli_connect(DB_CONNECTION, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+    $conn = new mysqli(DB_CONNECTION, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
 
-    if (!$connected) {
+    if (!$conn) {
         die("Connection failed: " . mysqli_connect_error());
     }
-
-    echo "Connected successfully";
