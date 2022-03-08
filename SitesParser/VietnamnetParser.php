@@ -2,8 +2,14 @@
 namespace SitesParser;
 
 use Helpers\Parser;
+use Interface\IParse;
 
-class VietnamnetParser extends Parser {    
+class VietnamnetParser extends Parser implements IParse{  
+    private $regex_date = '#<span class="ArticleDate">(.*?)</span>#si';
+    private $regex_title = '#<h1 class="title .+?">(.*?)</h1>#si';
+    private $regex_description = '#<div class="bold ArticleLead"><p>(.*?)</p></div>#si';
+    private $regex_details = '#<p class="t-j">(.*?)</p>#si';  
+    
     /**
      * getArrayElements
      *
@@ -11,16 +17,6 @@ class VietnamnetParser extends Parser {
      */
     public function getArrayElements() 
     {
-        return parent::parse(REGEX_VIETNAMNET_DATE, REGEX_VIETNAMNET_TITLE, REGEX_VIETNAMNET_DESCRIPTION, REGEX_VIETNAMNET_DETAILS);
+        return $this->parse($this->regex_date, $this->regex_title, $this->regex_description, $this->regex_details);
     }
 }
-
-// Regex Vietnamnet
-    // Date
-    define('REGEX_VIETNAMNET_DATE', '#<span class="ArticleDate">(.*?)</span>#si');
-    // Title
-    define('REGEX_VIETNAMNET_TITLE', '#<h1 class="title .+?">(.*?)</h1>#si');
-    // Date
-    define('REGEX_VIETNAMNET_DESCRIPTION', '#<div class="bold ArticleLead"><p>(.*?)</p></div>#si');
-    // Title
-    define('REGEX_VIETNAMNET_DETAILS', '#<p class="t-j">(.*?)</p>#si');

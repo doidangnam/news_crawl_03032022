@@ -2,8 +2,14 @@
 namespace SitesParser;
 
 use Helpers\Parser;
+use Interface\IParse as InterfaceIParse;
 
-class VnexpressParser extends Parser {    
+class VnexpressParser extends Parser implements InterfaceIParse{    
+    private $regex_date = '#<span class="date">(.*?)</span>#si';
+    private $regex_title = '#<h1 class="title-detail">(.*?)</h1>#si';
+    private $regex_description = '#<p class="description">(.*?)</p>#si';
+    private $regex_details = '#<p class="Normal">(.*?)</p>#si';  
+    
     /**
      * getArrayElements
      *
@@ -11,16 +17,6 @@ class VnexpressParser extends Parser {
      */
     public function getArrayElements() 
     {
-        return parent::parse(REGEX_VNEXPRESS_DATE, REGEX_VNEXPRESS_TITLE, REGEX_VNEXPRESS_DESCRIPTION, REGEX_VNEXPRESS_DETAILS);
+        return $this->parse($this->regex_date, $this->regex_title, $this->regex_description, $this->regex_details);
     }
 }
-
-// Regex Vnexpress
-    // Date
-    define('REGEX_VNEXPRESS_DATE', '#<span class="date">(.*?)</span>#si');
-    // Title
-    define('REGEX_VNEXPRESS_TITLE', '#<h1 class="title-detail">(.*?)</h1>#si');
-    // Date
-    define('REGEX_VNEXPRESS_DESCRIPTION', '#<p class="description">(.*?)</p>#si');
-    // Title
-    define('REGEX_VNEXPRESS_DETAILS', '#<p class="Normal">(.*?)</p>#si');

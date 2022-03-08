@@ -18,7 +18,7 @@ class Parser {
      * @param  string $regexDetails
      * @return array
      */
-    public function parse($regexDate, $regexTitle, $regexDescription, $regexDetails)
+    protected function parse($regexDate, $regexTitle, $regexDescription, $regexDetails)
     {
         preg_match($regexDate, $this->crawler->crawl(), $date);
         preg_match($regexTitle, $this->crawler->crawl(), $title);
