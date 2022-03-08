@@ -2,6 +2,7 @@
     include('./autoload.php');
     define('REGEX_VALIDATED_EMAIL', "/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i");
     define('ACCEPTED_SITE', ['vnexpress.net', 'dantri.com.vn', 'vietnamnet.vn']);
+    
     // CHECK IF USER ADDED LINK 
     if (isset($_GET['link'])) {
         $link = filter_var($_GET['link'],FILTER_SANITIZE_SPECIAL_CHARS);
@@ -46,6 +47,7 @@
         <label for="link"> Put link here! </label>
         <input type="text" id="link" name="link" value="<?php echo $link ?>" />
         <?php 
+
         // CHECK WHETHER EMAIL IS VALID
         if (!preg_match(REGEX_VALIDATED_EMAIL,$link) && isset($link)) {
             echo '<script language="javascript">';
@@ -54,6 +56,7 @@
         } elseif (in_array($site, ACCEPTED_SITE)) {
             echo("Valid $site URL");
             $crawler = new Helpers\Crawler($link);
+
             // Check hostname and point to specific parsers
             if ($site == "vnexpress.net") {
                 $content = new SitesParser\VnexpressParser($crawler);
@@ -66,9 +69,11 @@
             if ($site == "vietnamnet.vn") {
                 $content = new SitesParser\VietnamnetParser($crawler);
             }
+
             // Array for storage and display
             $arr = $content->getArrayElements();
         ?>
+        
             <!-- Display Information of the article -->
             <table>
                 <thead>
@@ -92,6 +97,7 @@
                 </tbody>
             </table>
         <?php
+        
         // USER INPUTS THE UNACCEPTED LINK
         } elseif (!in_array($link, ACCEPTED_SITE) && isset($_GET['link'])) {
             echo '<script language="javascript">';
@@ -100,6 +106,7 @@
         }
         ?>
     </form>
+
     <!-- FORM:SAVE TO DB -->
     <?php if ($arr['title'] != NULL && trim($link) != 0) { ?> 
         <form action="" method="POST">
