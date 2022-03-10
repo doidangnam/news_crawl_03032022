@@ -9,7 +9,12 @@ class VnexpressTextParser extends TextParser implements IParse {
     protected $regex_title = '#<h1 class="title-detail">(.*?)</h1>#si';
     protected $regex_description = '#<p class="description">(.*?)</p>#si';
     protected $regex_details = '#<p class="Normal">(.*?)</p>#si';   
-
+    
+    /**
+     * getArrayElements
+     *
+     * @return array
+     */
     public function getArrayElements()
     {
         return $this->parse();

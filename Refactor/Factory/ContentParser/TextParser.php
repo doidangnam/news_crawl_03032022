@@ -4,7 +4,12 @@ namespace Refactor\Factory\ContentParser;
 use Interface\IRegex;
 use Refactor\Factory\Parser;
 
-class TextParser extends Parser implements IRegex {
+class TextParser extends Parser implements IRegex {    
+    /**
+     * getRegex
+     *
+     * @return array of content regex 
+     */
     public function getRegex() {
         return [
             'date' => $this->regex_date,
