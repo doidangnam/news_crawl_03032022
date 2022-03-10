@@ -68,21 +68,22 @@
             // Check hostname and point to specific parsers
             if ($site == "vnexpress.net") {
                 $content = new Refactor\Factory\ContentParser\TextParsers\VnexpressTextParser($crawler);
+                $imageArr = new Refactor\Factory\ContentParser\PictureParsers\VnexpressPictureParser($crawler);
             }
 
             if ($site == "dantri.com.vn") {
                 $content = new Refactor\Factory\ContentParser\TextParsers\DantriTextParser($crawler);
-                $image = new Refactor\Factory\ContentParser\PictureParsers\DantriPictureParser($crawler);
+                $imageArr = new Refactor\Factory\ContentParser\PictureParsers\DantriPictureParser($crawler);
             }
 
             if ($site == "vietnamnet.vn") {
                 $content = new Refactor\Factory\ContentParser\TextParsers\VietnamnetTextParser($crawler);
+                $imageArr = new Refactor\Factory\ContentParser\PictureParsers\VietnamnetPictureParser($crawler);
             }
 
             // Array for storage and display
             $arr = $content->getArrayElements();
-            $images = $image->getArrayElements();
-            print_r($images);
+            $images = $imageArr->getArrayElements();
         ?>
         
             <!-- Display Information of the article -->
@@ -93,6 +94,7 @@
                         <th>Title</th>
                         <th>Description</th>
                         <th>Details</th>
+                        <th>Images</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -102,6 +104,10 @@
                         <td><?php echo $arr['description'][0] ?></td>
                         <td><?php foreach ($arr['details'][0] as $detail) {
                                 echo $detail;
+                            } ?>
+                        </td>
+                        <td><?php foreach ($images[1] as $image) {
+                                echo $image;
                             } ?>
                         </td>
                     </tr>
