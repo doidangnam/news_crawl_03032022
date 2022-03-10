@@ -59,15 +59,15 @@
 
             // Check hostname and point to specific parsers
             if ($site == "vnexpress.net") {
-                $content = new SitesParser\VnexpressParser($crawler);
+                $content = new Refactor\Factory\ContentParser\TextParsers\VnexpressParser($crawler);
             }
 
             if ($site == "dantri.com.vn") {
-                $content = new SitesParser\DantriParser($crawler);
+                $content = new Refactor\Factory\ContentParser\TextParsers\DantriParser($crawler);
             }
 
             if ($site == "vietnamnet.vn") {
-                $content = new SitesParser\VietnamnetParser($crawler);
+                $content = new Refactor\Factory\ContentParser\TextParsers\VietnamnetParser($crawler);
             }
 
             // Array for storage and display
@@ -112,7 +112,7 @@
         <form action="" method="POST">
             <input name="site" type="hidden" value='<?php echo $site ?>' >
             <input name="date" type="hidden" value='<?php echo $arr['date'][0] ?>'>
-            <input name="title" type="hidden" value='<?php echo $arr['title'][0] ?>' />
+            <input name="title" type="hidden" value='<?php echo $arr['title'][0] ?>' >
             <input name="description" type="hidden" value='<?php echo $arr['description'][0] ?>'>
             <input name="details" type="hidden" value='<?php echo implode("|", $arr['details'][0]) ?>' >
             <button type="submit" name="save_to_db">SAVE TO DATABASE!</button>
