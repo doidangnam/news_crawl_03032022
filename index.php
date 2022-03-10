@@ -1,4 +1,7 @@
 <?php
+
+use Controllers\ContentController;
+
     include('./autoload.php');
     define('REGEX_VALIDATED_URL', "/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i");
     define('ACCEPTED_SITE', ['vnexpress.net', 'dantri.com.vn', 'vietnamnet.vn']);
@@ -17,9 +20,10 @@
             $title = $_POST['title'];
             $description = $_POST['description'];
             $details = $_POST['details'];
+            $images = $_POST['images'];
             
             include('./database/connectdb.php');
-            $sql = sprintf("INSERT INTO news (site, date, title, description, details) VALUES ('%s', '%s', '%s', '%s', '%s')", $site, $date, $title, $description, $details);
+            $sql = sprintf("INSERT INTO news (site, date, title, description, details, images) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')", $site, $date, $title, $description, $details, $images);
             $isSucceeded = $conn->query($sql);
             
             if ($isSucceeded) {
@@ -56,14 +60,6 @@
         } elseif (in_array($site, ACCEPTED_SITE)) {
             echo("Valid $site URL");
             $crawler = new Helpers\Crawler($link);
-            /* preg_match_all('#<figure class="image align-center" .+?>(.*?)</figure>#si', $crawler->crawl(), $results);
-            foreach ($results[0] as $result) {
-                preg_match( '/src="([^"]*)"/i', $result, $array ) ;
-                print_r($array[1]);
-                print_r($result);
-                $fp = 'logo-1.png';
-                file_put_contents( $fp, $array[1] );
-            } */
 
             // Check hostname and point to specific parsers
             if ($site == "vnexpress.net") {
@@ -84,6 +80,12 @@
             // Array for storage and display
             $arr = $content->getArrayElements();
             $images = $imageArr->getArrayElements();
+            // print_r($images);
+            $imageSrc = [];
+            foreach ($images[1] as $image) {
+                preg_match( '/src="([^"]*)"/i', $image, $src );
+                array_push($imageSrc,($src)[1]);
+            }
         ?>
         
             <!-- Display Information of the article -->
@@ -107,7 +109,7 @@
                             } ?>
                         </td>
                         <td><?php foreach ($images[1] as $image) {
-                                echo $image;
+                                print_r($image);
                             } ?>
                         </td>
                     </tr>
@@ -132,6 +134,7 @@
             <input name="title" type="hidden" value='<?php echo $arr['title'][0] ?>' >
             <input name="description" type="hidden" value='<?php echo $arr['description'][0] ?>'>
             <input name="details" type="hidden" value='<?php echo implode("|", $arr['details'][0]) ?>' >
+            <input name="images" type="hidden" value='<?php echo implode("|", $imageSrc) ?>' >
             <button type="submit" name="save_to_db">SAVE TO DATABASE!</button>
         </form>
     <?php } ?>
