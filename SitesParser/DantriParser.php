@@ -1,8 +1,8 @@
 <?php 
 namespace SitesParser;
 
-use Helpers\Parser;
 use Interface\IParse;
+use Refactor\Factory\Parser;
 
 class DantriParser extends Parser implements IParse{
     private $regex_date = '#<time class="author-time" .+?>(.*?)</time>#si';
@@ -10,6 +10,15 @@ class DantriParser extends Parser implements IParse{
     private $regex_description = '#<h2 class="singular-sapo">(.*?)</h2>#si';
     private $regex_details = '#<p>(.*?)</p>#si';
 
+    public function getRegex()
+    {
+        return [
+            'date' => $this->regex_date,
+            'title' => $this->regex_title,
+            'description' => $this->regex_description,
+            'details' => $this->regex_details,
+        ];
+    }
     /**
      * getArrayElements
      *
@@ -17,6 +26,6 @@ class DantriParser extends Parser implements IParse{
      */
     public function getArrayElements() 
     {
-        return $this->parse($this->regex_date, $this->regex_title, $this->regex_description, $this->regex_details);
+        return $this->parse();
     }
 }

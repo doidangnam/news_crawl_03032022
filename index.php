@@ -1,6 +1,6 @@
 <?php
     include('./autoload.php');
-    define('REGEX_VALIDATED_EMAIL', "/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i");
+    define('REGEX_VALIDATED_URL', "/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i");
     define('ACCEPTED_SITE', ['vnexpress.net', 'dantri.com.vn', 'vietnamnet.vn']);
     
     // CHECK IF USER ADDED LINK 
@@ -48,8 +48,8 @@
         <input type="text" id="link" name="link" value="<?php echo $link ?>" />
         <?php 
 
-        // CHECK WHETHER EMAIL IS VALID
-        if (!preg_match(REGEX_VALIDATED_EMAIL,$link) && isset($link)) {
+        // CHECK WHETHER URL IS VALID
+        if (!preg_match(REGEX_VALIDATED_URL, $link) && isset($link)) {
             echo '<script language="javascript">';
             echo 'alert(`Invalid URL`)';
             echo '</script>';
