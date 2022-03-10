@@ -56,22 +56,33 @@
         } elseif (in_array($site, ACCEPTED_SITE)) {
             echo("Valid $site URL");
             $crawler = new Helpers\Crawler($link);
+            /* preg_match_all('#<figure class="image align-center" .+?>(.*?)</figure>#si', $crawler->crawl(), $results);
+            foreach ($results[0] as $result) {
+                preg_match( '/src="([^"]*)"/i', $result, $array ) ;
+                print_r($array[1]);
+                print_r($result);
+                $fp = 'logo-1.png';
+                file_put_contents( $fp, $array[1] );
+            } */
 
             // Check hostname and point to specific parsers
             if ($site == "vnexpress.net") {
-                $content = new Refactor\Factory\ContentParser\TextParsers\VnexpressParser($crawler);
+                $content = new Refactor\Factory\ContentParser\TextParsers\VnexpressTextParser($crawler);
             }
 
             if ($site == "dantri.com.vn") {
-                $content = new Refactor\Factory\ContentParser\TextParsers\DantriParser($crawler);
+                $content = new Refactor\Factory\ContentParser\TextParsers\DantriTextParser($crawler);
+                $image = new Refactor\Factory\ContentParser\PictureParsers\DantriPictureParser($crawler);
             }
 
             if ($site == "vietnamnet.vn") {
-                $content = new Refactor\Factory\ContentParser\TextParsers\VietnamnetParser($crawler);
+                $content = new Refactor\Factory\ContentParser\TextParsers\VietnamnetTextParser($crawler);
             }
 
             // Array for storage and display
             $arr = $content->getArrayElements();
+            $images = $image->getArrayElements();
+            print_r($images);
         ?>
         
             <!-- Display Information of the article -->

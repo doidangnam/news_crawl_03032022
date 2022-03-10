@@ -4,7 +4,7 @@ namespace Refactor\Factory\ContentParser\TextParsers;
 use Interface\IParse;
 use Refactor\Factory\ContentParser\TextParser;
 
-class DantriParser extends TextParser implements IParse {
+class DantriTextParser extends TextParser implements IParse {
     protected $regex_date = '#<time class="author-time" .+?>(.*?)</time>#si';
     protected $regex_title = '#<h1 class="title-page detail">(.*?)</h1>#si';
     protected $regex_description = '#<h2 class="singular-sapo">(.*?)</h2>#si';
