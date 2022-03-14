@@ -6,9 +6,9 @@ use Refactor\Factory\Parser;
 
 class TextParser extends Parser implements IRegex {    
     /**
-     * getRegex
+     *  Return an array of regex
      *
-     * @return array of content regex 
+     * @return array 
      */
     public function getRegex() {
         return [
@@ -18,7 +18,12 @@ class TextParser extends Parser implements IRegex {
             'details' => $this->regex_details,
         ];
     }
-
+    
+    /**
+     * Return the array of html elemenet
+     *
+     * @return array
+     */
     public function parse()
     {
         $regex = $this->getRegex();

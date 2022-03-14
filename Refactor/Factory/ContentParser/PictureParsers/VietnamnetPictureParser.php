@@ -8,7 +8,7 @@ class VietnamnetPictureParser extends PictureParser implements IParse {
     protected $imgContainerRegex = '#<td class="FmsArticleBoxStyle-Images image ">(.*?)</td>#si';
     
     /**
-     * getArrayElements
+     * Return an array of images for display
      *
      * @return array
      */

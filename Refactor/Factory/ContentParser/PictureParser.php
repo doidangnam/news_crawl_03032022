@@ -6,7 +6,7 @@ use Refactor\Factory\Parser;
 
 class PictureParser extends Parser implements IRegex {    
     /**
-     * getRegex
+     * Return the regular expression of images tag
      *
      * @return array regex that contains the images  
      */
@@ -18,9 +18,9 @@ class PictureParser extends Parser implements IRegex {
     }
     
     /**
-     * parse
+     * Return an array of images with description
      *
-     * @return array of images
+     * @return array 
      */
     public function parse() {
         $regex = $this->getRegex();

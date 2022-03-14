@@ -8,7 +8,7 @@ class VnexpressPictureParser extends PictureParser implements IParse {
     protected $imgContainerRegex = '#<div class="fig-picture" .+?>(.*?)</div>#si';
     
     /**
-     * getArrayElements
+     * Return an array of images for display
      *
      * @return array
      */
