@@ -2,7 +2,7 @@
 namespace Refactor\Factory\ContentParser;
 
 use Helpers\Crawler;
-use Interface\IRegex;
+use Interfaces\IRegex;
 use Refactor\Factory\ContentParser\TextParsers\DantriTextParser;
 use Refactor\Factory\ContentParser\TextParsers\VietnamnetTextParser;
 use Refactor\Factory\ContentParser\TextParsers\VnexpressTextParser;

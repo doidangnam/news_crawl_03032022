@@ -1,7 +1,7 @@
 <?php 
 namespace Refactor\Factory\ContentParser\PictureParsers;
 
-use Interface\IParse;
+use Interfaces\IParse;
 use Refactor\Factory\ContentParser\PictureParser;
 
 class VnexpressPictureParser extends PictureParser implements IParse {

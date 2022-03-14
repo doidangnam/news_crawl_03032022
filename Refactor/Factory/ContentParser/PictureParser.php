@@ -2,7 +2,7 @@
 namespace Refactor\Factory\ContentParser;
 
 use Helpers\Crawler;
-use Interface\IRegex;
+use Interfaces\IRegex;
 use Refactor\Factory\ContentParser\PictureParsers\DantriPictureParser;
 use Refactor\Factory\ContentParser\PictureParsers\VietnamnetPictureParser;
 use Refactor\Factory\ContentParser\PictureParsers\VnexpressPictureParser;

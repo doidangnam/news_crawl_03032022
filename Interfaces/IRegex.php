@@ -1,5 +1,5 @@
 <?php   
-namespace Interface;
+namespace Interfaces;
 
 interface IRegex {
     public function getRegex(); 

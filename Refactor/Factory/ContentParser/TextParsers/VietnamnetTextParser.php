@@ -1,7 +1,7 @@
 <?php
 namespace Refactor\Factory\ContentParser\TextParsers;
 
-use Interface\IParse;
+use Interfaces\IParse;
 use Refactor\Factory\ContentParser\TextParser;
 
 class VietnamnetTextParser extends TextParser implements IParse {  
