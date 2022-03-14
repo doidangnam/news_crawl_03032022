@@ -1,6 +1,7 @@
 <?php
 
 use Models\Client;
+use Refactor\Factory\ContentParser\PictureParser;
 use Refactor\Factory\ContentParser\TextParser;
 
     include('./autoload.php');
@@ -64,15 +65,13 @@ use Refactor\Factory\ContentParser\TextParser;
             $clientGetText = new Client(new TextParser($crawler, $site));
             $arr = $clientGetText->getContent();
 
-            // Array for storage and display
-            // $arr = $content->getArrayElements();
-            // $images = $imageArr->getArrayElements();
-            
-            // $imageSrc = [];
-            // foreach ($images[1] as $image) {
-            //     preg_match( '/src="([^"]*)"/i', $image, $src );
-            //     array_push($imageSrc,($src)[1]);
-            // }
+            $clientGetImage = new Client(new PictureParser($crawler, $site));
+            $images = $clientGetImage->getContent();
+            $imageSrc = [];
+            foreach ($images[1] as $image) {
+                preg_match( '/src="([^"]*)"/i', $image, $src );
+                array_push($imageSrc,($src)[1]);
+            }
         ?>
         
             <!-- Display Information of the article -->

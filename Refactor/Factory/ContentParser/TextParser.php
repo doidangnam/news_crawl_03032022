@@ -36,7 +36,7 @@ class TextParser extends Parser implements IRegex {
      *
      * @return array
      */
-    public function parse()
+    protected function parse()
     {
         $regex = $this->getRegex();
 
