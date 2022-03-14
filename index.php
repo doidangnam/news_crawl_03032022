@@ -1,6 +1,7 @@
 <?php
 
-use Controllers\ContentController;
+use Models\Client;
+use Refactor\Factory\ContentParser\TextParser;
 
     include('./autoload.php');
     define('REGEX_VALIDATED_URL', "/\b(?:(?:https?|ftp):\/\/|www\.)[-a-z0-9+&@#\/%?=~_|!:,.;]*[-a-z0-9+&@#\/%=~_|]/i");
@@ -60,32 +61,18 @@ use Controllers\ContentController;
         } elseif (in_array($site, ACCEPTED_SITE)) {
             echo("Valid $site URL");
             $crawler = new Helpers\Crawler($link);
-
-            // Check hostname and point to specific parsers
-            if ($site == "vnexpress.net") {
-                $content = new Refactor\Factory\ContentParser\TextParsers\VnexpressTextParser($crawler);
-                $imageArr = new Refactor\Factory\ContentParser\PictureParsers\VnexpressPictureParser($crawler);
-            }
-
-            if ($site == "dantri.com.vn") {
-                $content = new Refactor\Factory\ContentParser\TextParsers\DantriTextParser($crawler);
-                $imageArr = new Refactor\Factory\ContentParser\PictureParsers\DantriPictureParser($crawler);
-            }
-
-            if ($site == "vietnamnet.vn") {
-                $content = new Refactor\Factory\ContentParser\TextParsers\VietnamnetTextParser($crawler);
-                $imageArr = new Refactor\Factory\ContentParser\PictureParsers\VietnamnetPictureParser($crawler);
-            }
+            $clientGetText = new Client(new TextParser($crawler, $site));
+            $arr = $clientGetText->getContent();
 
             // Array for storage and display
-            $arr = $content->getArrayElements();
-            $images = $imageArr->getArrayElements();
-            // print_r($images);
-            $imageSrc = [];
-            foreach ($images[1] as $image) {
-                preg_match( '/src="([^"]*)"/i', $image, $src );
-                array_push($imageSrc,($src)[1]);
-            }
+            // $arr = $content->getArrayElements();
+            // $images = $imageArr->getArrayElements();
+            
+            // $imageSrc = [];
+            // foreach ($images[1] as $image) {
+            //     preg_match( '/src="([^"]*)"/i', $image, $src );
+            //     array_push($imageSrc,($src)[1]);
+            // }
         ?>
         
             <!-- Display Information of the article -->

@@ -11,7 +11,7 @@ class VnexpressTextParser extends TextParser implements IParse {
     protected $regex_details = '#<p class="Normal">(.*?)</p>#si';   
     
     /**
-     * getArrayElements
+     * Return the array of html elements from the site
      *
      * @return array
      */

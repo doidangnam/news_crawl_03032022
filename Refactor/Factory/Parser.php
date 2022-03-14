@@ -1,17 +1,13 @@
 <?php   
 namespace Refactor\Factory;
 
-use Helpers\Crawler;
-
 abstract class Parser {
-    protected $crawler;
-    
-    public function __construct(Crawler $crawler)
-    {   
-        $this->crawler = $crawler;
-    }
+    abstract function specifySiteParser();
 
-    abstract function parse(); 
+    public function init() {
+        $newsParser = $this->specifySiteParser();
+        return $newsParser->getArrayElements();
+    }
 }
 
 

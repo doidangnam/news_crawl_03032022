@@ -1,10 +1,22 @@
 <?php
 namespace Refactor\Factory\ContentParser;
 
+use Helpers\Crawler;
 use Interface\IRegex;
+use Refactor\Factory\ContentParser\TextParsers\DantriTextParser;
+use Refactor\Factory\ContentParser\TextParsers\VietnamnetTextParser;
+use Refactor\Factory\ContentParser\TextParsers\VnexpressTextParser;
 use Refactor\Factory\Parser;
 
-class TextParser extends Parser implements IRegex {    
+class TextParser extends Parser implements IRegex {   
+    private $site; 
+    private $crawler;
+    
+    public function __construct(Crawler $crawler, $site)
+    {
+        $this->crawler = $crawler;
+        $this->site = $site;
+    }
     /**
      *  Return an array of regex
      *
@@ -20,7 +32,7 @@ class TextParser extends Parser implements IRegex {
     }
     
     /**
-     * Return the array of html elemenet
+     * Return the array of html elements from the site 
      *
      * @return array
      */
@@ -39,5 +51,20 @@ class TextParser extends Parser implements IRegex {
             'description' => $description,
             'details' => $details
         ];
+    }
+
+    public function specifySiteParser() 
+    {
+        if ($this->site == "vnexpress.net") {
+            return new VnexpressTextParser($this->crawler, $this->site);
+        }
+
+        if ($this->site == "dantri.com.vn") {
+            return new DantriTextParser($this->crawler, $this->site);
+        }
+
+        if ($this->site == "vietnamnet.vn") {
+            return new VietnamnetTextParser($this->crawler, $this->site);
+        }
     }
 }

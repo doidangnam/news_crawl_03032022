@@ -2,9 +2,10 @@
 namespace Refactor\Factory\ContentParser;
 
 use Interface\IRegex;
+use Refactor\Factory\ContentParser\PictureParsers\VnexpressPictureParser;
 use Refactor\Factory\Parser;
 
-class PictureParser extends Parser implements IRegex {    
+class PictureParser extends Parser implements IRegex {
     /**
      * Return the regular expression of images tag
      *
@@ -18,7 +19,7 @@ class PictureParser extends Parser implements IRegex {
     }
     
     /**
-     * Return an array of images with description
+     * Return an array of images
      *
      * @return array 
      */
@@ -28,5 +29,22 @@ class PictureParser extends Parser implements IRegex {
         preg_match_all($regex['imgContainerRegex'], $this->crawler->crawl(), $images);
 
         return $images;
+    }
+
+    public function specifySiteParser() 
+    {
+        if ($this->site == "vnexpress.net") {
+            return new VnexpressPictureParser($this->crawler, $this->site);
+        }
+
+        // if ($this->site == "dantri.com.vn") {
+        //     $content = new Refactor\Factory\ContentParser\TextParsers\DantriTextParser($crawler);
+        //     $imageArr = new Refactor\Factory\ContentParser\PictureParsers\DantriPictureParser($crawler);
+        // }
+
+        // if ($this->site == "vietnamnet.vn") {
+        //     $content = new Refactor\Factory\ContentParser\TextParsers\VietnamnetTextParser($crawler);
+        //     $imageArr = new Refactor\Factory\ContentParser\PictureParsers\VietnamnetPictureParser($crawler);
+        // }
     }
 }
