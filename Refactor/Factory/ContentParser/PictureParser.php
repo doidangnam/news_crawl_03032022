@@ -1,34 +1,22 @@
 <?php
+namespace Refactor\Factory\ContentParser;
+
+use Helpers\Crawler;
+use Interfaces\IRegex;
+use Refactor\Factory\ContentParser\PictureParsers\DantriPictureParser;
+use Refactor\Factory\ContentParser\PictureParsers\VietnamnetPictureParser;
+use Refactor\Factory\ContentParser\PictureParsers\VnexpressPictureParser;
+use Refactor\Factory\Parser;
+
 class PictureParser extends Parser implements IRegex {
-    protected $site; 
-    protected $crawler;
+    private $site; 
+    private $crawler;
     
-    /**
-     * Set Crawler Object
-     *
-     * @param  Crawler $crawler
-     * @return void
-     */
-    public function setCrawler(Crawler $crawler) {
-        $this->crawler = $crawler;
-    }
-        
-    /**
-     * Set the site
-     *
-     * @param  string $site
-     * @return void
-     */
-    public function setSite($site)
+    public function __construct(Crawler $crawler, $site)
     {
+        $this->crawler = $crawler;
         $this->site = $site;
     }
-
-    public function setImgContainerRegex($imgContainerRegex)
-    {
-        $this->imgContainerRegex = $imgContainerRegex;
-    }
-
     /**
      * Return the regular expression of images tag
      *

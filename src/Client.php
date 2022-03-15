@@ -7,7 +7,13 @@ class Client
      * @var Parser
      */
     protected $parser;
-    
+        
+    /**
+     * Set the parser dependency
+     *
+     * @param  Parser $parser
+     * @return void
+     */
     public function setParser(Parser $parser)
     {
         $this->parser = $parser;

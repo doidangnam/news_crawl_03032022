@@ -1,36 +1,22 @@
 <?php
+namespace Refactor\Factory\ContentParser;
+
+use Helpers\Crawler;
+use Interfaces\IRegex;
+use Refactor\Factory\ContentParser\TextParsers\DantriTextParser;
+use Refactor\Factory\ContentParser\TextParsers\VietnamnetTextParser;
+use Refactor\Factory\ContentParser\TextParsers\VnexpressTextParser;
+use Refactor\Factory\Parser;
+
 class TextParser extends Parser implements IRegex {   
-    protected $site; 
-    protected $crawler;
+    private $site; 
+    private $crawler;
     
-    /**
-     * Set Crawler Object
-     *
-     * @param  Crawler $crawler
-     * @return void
-     */
-    public function setCrawler(Crawler $crawler) {
-        $this->crawler = $crawler;
-    }
-        
-    /**
-     * Set the site
-     *
-     * @param  string $site
-     * @return void
-     */
-    public function setSite($site)
+    public function __construct(Crawler $crawler, $site)
     {
+        $this->crawler = $crawler;
         $this->site = $site;
     }
-
-    public function setTextRegex($regex_date, $regex_title, $regex_description, $regex_details) {
-        $this->regex_date = $regex_date;
-        $this->regex_title = $regex_title;
-        $this->regex_description = $regex_description;
-        $this->regex_details = $regex_details;
-    }
-
     /**
      *  Return an array of regex
      *
