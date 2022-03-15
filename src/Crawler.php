@@ -2,11 +2,15 @@
 class Crawler {
     private $link;
 
-    public function __construct($link)
+    public function setLinkAttribute($link)
     {   
         $this->link = $link;
     }
         
+    public function getLinkAttribute()
+    {
+        return $this->link;
+    }
     /**
      * crawl
      *
