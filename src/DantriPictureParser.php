@@ -1,9 +1,4 @@
-<?php 
-namespace Refactor\Factory\ContentParser\PictureParsers;
-
-use Interfaces\IParse;
-use Refactor\Factory\ContentParser\PictureParser;
-
+<?php
 class DantriPictureParser extends PictureParser implements IParse {
     protected $imgContainerRegex = '#<figure class="image align-center" .+?>(.*?)</figure>#si';
     

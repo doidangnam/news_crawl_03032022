@@ -1,9 +1,4 @@
-<?php 
-namespace Refactor\Factory\ContentParser\PictureParsers;
-
-use Interfaces\IParse;
-use Refactor\Factory\ContentParser\PictureParser;
-
+<?php
 class VnexpressPictureParser extends PictureParser implements IParse {
     protected $imgContainerRegex = '#<div class="fig-picture" .+?>(.*?)</div>#si';
     

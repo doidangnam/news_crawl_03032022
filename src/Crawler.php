@@ -1,6 +1,4 @@
-<?php 
-namespace Helpers;
-
+<?php
 class Crawler {
     private $link;
 

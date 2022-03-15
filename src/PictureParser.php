@@ -1,13 +1,4 @@
 <?php
-namespace Refactor\Factory\ContentParser;
-
-use Helpers\Crawler;
-use Interfaces\IRegex;
-use Refactor\Factory\ContentParser\PictureParsers\DantriPictureParser;
-use Refactor\Factory\ContentParser\PictureParsers\VietnamnetPictureParser;
-use Refactor\Factory\ContentParser\PictureParsers\VnexpressPictureParser;
-use Refactor\Factory\Parser;
-
 class PictureParser extends Parser implements IRegex {
     private $site; 
     private $crawler;

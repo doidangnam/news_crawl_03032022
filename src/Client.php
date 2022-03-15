@@ -1,12 +1,14 @@
-<?php 
-namespace Models;
-
-use Refactor\Factory\Parser;
-
-
+<?php
 class Client
 {
-    public function __construct(Parser $parser)
+    /**
+     * Parser object
+     *
+     * @var Parser
+     */
+    protected $parser;
+    
+    public function setParser(Parser $parser)
     {
         $this->parser = $parser;
     }

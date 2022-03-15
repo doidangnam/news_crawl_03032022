@@ -1,13 +1,4 @@
 <?php
-namespace Refactor\Factory\ContentParser;
-
-use Helpers\Crawler;
-use Interfaces\IRegex;
-use Refactor\Factory\ContentParser\TextParsers\DantriTextParser;
-use Refactor\Factory\ContentParser\TextParsers\VietnamnetTextParser;
-use Refactor\Factory\ContentParser\TextParsers\VnexpressTextParser;
-use Refactor\Factory\Parser;
-
 class TextParser extends Parser implements IRegex {   
     private $site; 
     private $crawler;

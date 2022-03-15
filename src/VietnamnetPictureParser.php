@@ -1,9 +1,4 @@
-<?php 
-namespace Refactor\Factory\ContentParser\PictureParsers;
-
-use Interfaces\IParse;
-use Refactor\Factory\ContentParser\PictureParser;
-
+<?php
 class VietnamnetPictureParser extends PictureParser implements IParse {
     protected $imgContainerRegex = '#<td class="FmsArticleBoxStyle-Images image ">(.*?)</td>#si';
     

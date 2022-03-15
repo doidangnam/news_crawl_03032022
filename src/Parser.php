@@ -1,6 +1,4 @@
-<?php   
-namespace Refactor\Factory;
-
+<?php
 abstract class Parser {
     abstract function specifySiteParser();
 
