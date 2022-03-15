@@ -17,10 +17,15 @@ class PictureParser extends Parser implements IRegex {
      * Set the site
      *
      * @param  string $site
-     * @return void
+     * 
+     * @throws SiteException 
      */
     public function setSite($site)
     {
+        if (! in_array($site, $this->availableSites)) {
+            throw new SiteException('Fail to set unavailable site ' . $site);
+        }
+        
         $this->site = $site;
     }
 

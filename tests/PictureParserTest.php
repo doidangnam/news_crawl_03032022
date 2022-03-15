@@ -9,6 +9,22 @@ class PictureParserText extends TestCase
         $this->parser = new PictureParser;
     }
 
+    /**
+     * Set the site
+     *
+     * @param  string $site
+     * 
+     * @throws SiteException 
+     */
+    public function setSite($site)
+    {   
+        if (! in_array($site, $this->availableSites)) {
+            throw new SiteException('Fail to set unavailable site ' . $site);
+        }
+
+        $this->site = $site;
+    }
+
     public function testFunctionGetRegexReturnAnArrayOfRexgex()
     {
         $this->parser->setImgContainerRegex('#sampleregex#si');
@@ -37,5 +53,23 @@ class PictureParserText extends TestCase
             ["dantri.com.vn", DantriPictureParser::class],
             ["vietnamnet.vn", VietnamnetPictureParser::class],
         ];
+    }
+
+    /**
+     * @dataProvider invalidSitesProvider
+     *
+     * @param  string $site
+     * @return void
+     */
+    public function testSetInvalidSite(string $site) 
+    {
+        $this->expectException(SiteException::class);
+        $this->parser->setSite($site);
+        
+    }
+
+    public function invalidSitesProvider():array 
+    {
+        return [['infonet.vietnamnet.vn'], ['nguoiduatin.vn']];
     }
 }

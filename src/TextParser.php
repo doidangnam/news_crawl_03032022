@@ -2,7 +2,6 @@
 class TextParser extends Parser implements IRegex {   
     protected $site; 
     protected $crawler;
-    protected $availableSites = ["vnexpress.net", "dantri.com.vn", "vietnamnet.vn"];
     /**
      * Set Crawler Object
      *

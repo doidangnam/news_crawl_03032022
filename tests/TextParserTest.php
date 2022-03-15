@@ -36,7 +36,7 @@ class TextParserTest extends TestCase
 
     public function invalidSitesProvider():array 
     {
-        return [['helloworld.com/news/help-me-solve-this'], ['123.net/assignment-essay']];
+        return [['helloworld.com'], ['123.net']];
     }
 
     /**
