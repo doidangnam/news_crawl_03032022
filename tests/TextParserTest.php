@@ -20,7 +20,25 @@ class TextParserTest extends TestCase
             'details' => 'regex_details_pattern',
         ], $this->parser->getRegex());
     }
-    
+        
+    /**
+     * @dataProvider invalidSitesProvider
+     *
+     * @param  string $site
+     * @return void
+     */
+    public function testSetInvalidSite(string $site) 
+    {
+        $this->expectException(SiteException::class);
+        $this->parser->setSite($site);
+        
+    }
+
+    public function invalidSitesProvider():array 
+    {
+        return [['helloworld.com/news/help-me-solve-this'], ['123.net/assignment-essay']];
+    }
+
     /**
      * @dataProvider additionProvider
      *

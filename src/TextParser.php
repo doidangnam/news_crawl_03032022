@@ -2,7 +2,7 @@
 class TextParser extends Parser implements IRegex {   
     protected $site; 
     protected $crawler;
-    
+    protected $availableSites = ["vnexpress.net", "dantri.com.vn", "vietnamnet.vn"];
     /**
      * Set Crawler Object
      *
@@ -17,10 +17,15 @@ class TextParser extends Parser implements IRegex {
      * Set the site
      *
      * @param  string $site
-     * @return void
+     * 
+     * @throws SiteException 
      */
     public function setSite($site)
-    {
+    {   
+        if (! in_array($site, $this->availableSites)) {
+            throw new SiteException('Fail to set unavailable site ' . $site);
+        }
+
         $this->site = $site;
     }
 
